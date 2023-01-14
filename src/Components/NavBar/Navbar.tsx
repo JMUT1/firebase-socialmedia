@@ -3,7 +3,7 @@ import { auth } from "../../config/firebase"
 import {useAuthState} from "react-firebase-hooks/auth"
 import {signOut} from "firebase/auth"
 import "./Navbar.css"
-
+import CreatePost from "../../Pages/Create-post/CreatePost"
 
 const Navbar = () => {
 
@@ -22,7 +22,8 @@ const Navbar = () => {
         <div className="links-nav">
 
         <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
+{      !user ?  <Link to="/login">Login</Link> : <Link to="/createpost">Create Post</Link>}        
+
         </div>
 
         <>
