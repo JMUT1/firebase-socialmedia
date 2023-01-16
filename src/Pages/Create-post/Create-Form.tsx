@@ -37,7 +37,7 @@ const CreateForm = () => {
     title: data.title,
     description: data.description,
     username: user?.displayName,
-    id: user?.uid,
+    userId: user?.uid,
    })
 
   };
