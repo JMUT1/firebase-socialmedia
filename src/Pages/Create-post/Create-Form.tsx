@@ -1,12 +1,11 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import "./create-form.css"
 import {addDoc, collection} from "firebase/firestore"
 import {db, auth} from "../../config/firebase"
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
+import "./create-form.css"
 
 
 interface CreateFormData {
@@ -24,9 +23,7 @@ const CreateForm = () => {
     description: yup.string().required("you must add a title"),
   });
 
-  const {
-    register,
-    handleSubmit,
+  const {register, handleSubmit,
     formState: { errors },
   } = useForm<CreateFormData>({
     resolver: yupResolver(schema),
