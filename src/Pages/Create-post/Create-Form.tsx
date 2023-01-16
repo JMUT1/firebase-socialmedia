@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import "./create-form.css"
+import {addDoc, collection} from "firebase/firestore"
+import {db, auth} from "../../config/firebase"
+import { useAuthState } from "react-firebase-hooks/auth";
 
 
 interface CreateFormData {
@@ -11,6 +14,9 @@ interface CreateFormData {
 }
 
 const CreateForm = () => {
+
+  const [ user] = useAuthState(auth)
+
   const schema = yup.object().shape({
     title: yup.string().required("Title is required"),
     description: yup.string().required("you must add a title"),
@@ -24,8 +30,16 @@ const CreateForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const onCreatePost = (data: CreateFormData) => {
-    console.log(data);
+  const postsRef = collection(db, "posts")
+
+  const onCreatePost = async (data: CreateFormData) => {
+   await addDoc(postsRef,{
+    title: data.title,
+    description: data.description,
+    username: user?.displayName,
+    id: user?.uid,
+   })
+
   };
 
   return (
