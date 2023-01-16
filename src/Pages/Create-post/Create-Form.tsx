@@ -6,6 +6,7 @@ import "./create-form.css"
 import {addDoc, collection} from "firebase/firestore"
 import {db, auth} from "../../config/firebase"
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 
 
 interface CreateFormData {
@@ -16,6 +17,7 @@ interface CreateFormData {
 const CreateForm = () => {
 
   const [ user] = useAuthState(auth)
+  const navigate = useNavigate()
 
   const schema = yup.object().shape({
     title: yup.string().required("Title is required"),
@@ -39,6 +41,7 @@ const CreateForm = () => {
     username: user?.displayName,
     userId: user?.uid,
    })
+   navigate("/")
 
   };
 
